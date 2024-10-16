@@ -1,8 +1,13 @@
-# React + Vite
+# thought-expt-ui
+サークル内チーム開発のフロントエンドリポジトリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 実行方法
+ライブラリのインストール（初回とライブラリ追加時のみ）
+```
+npm install
+```
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+開発サーバの起動
+```
+npm run dev
+```
