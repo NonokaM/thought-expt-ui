@@ -1,5 +1,5 @@
 function AnswerQuestion() {
-    return <h2>AnswerQuestion Page</h2>;
+  return <h2>AnswerQuestion Page</h2>
 }
 
-export default AnswerQuestion;
+export default AnswerQuestion

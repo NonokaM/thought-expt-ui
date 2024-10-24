@@ -11,21 +11,20 @@ import UserPage from './pages/UserProfile'
 import ViewQuestion from './pages/ViewQuestion'
 
 function App() {
-
   return (
     <>
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/questions/new" element={<PostQuestion />} />
-        <Route path="/questions/:questionId" element={<ViewQuestion />} />
-        <Route path="/questions/:questionId/answer" element={<AnswerQuestion />} />
-        <Route path="/user/:userId" element={<UserPage />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/questions/new" element={<PostQuestion />} />
+          <Route path="/questions/:questionId" element={<ViewQuestion />} />
+          <Route path="/questions/:questionId/answer" element={<AnswerQuestion />} />
+          <Route path="/user/:userId" element={<UserPage />} />
+        </Routes>
+      </Router>
     </>
   )
 }

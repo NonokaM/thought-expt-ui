@@ -1,5 +1,5 @@
 function ViewQuestion() {
-    return <h2>ViewQuestion Page</h2>;
+  return <h2>ViewQuestion Page</h2>
 }
 
-export default ViewQuestion;
+export default ViewQuestion

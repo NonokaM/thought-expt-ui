@@ -1,5 +1,5 @@
 function PostQuestion() {
-    return <h2>PostQuestion Page</h2>;
+  return <h2>PostQuestion Page</h2>
 }
 
-export default PostQuestion;
+export default PostQuestion
