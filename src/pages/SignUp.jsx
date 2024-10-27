@@ -26,7 +26,7 @@ function SignUp() {
         <div>
           <label>ユーザー名:</label>
           <input
-            type="user_name"
+            type="text"
             value={user_name}
             onChange={(e) => setUser_name(e.target.value)}
             required
