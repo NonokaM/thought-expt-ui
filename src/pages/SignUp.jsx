@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [user_name, setUser_name] = useState('')
@@ -6,6 +7,8 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
+
 
   const handleSubmit = (e) => {
     e.preventDefault() // デフォルトのフォーム送信を防止
@@ -17,44 +20,47 @@ function SignUp() {
     console.log('ユーザー名:', user_name)
     console.log('メールアドレス:', email)
     console.log('パスワード:', password)
+    navigate('/')
   }
 
   return (
     <div>
-      <h1>新規登録</h1>
+      <h1>新規登録で思考実験をはじめよう</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>ユーザー名:</label>
           <input
             type="text"
             value={user_name}
             onChange={(e) => setUser_name(e.target.value)}
             required
+            placeholder="ユーザー名"
           />
         </div>
         <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+          required
+          placeholder="メールアドレス"
+          />
         </div>
         <div>
-          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="パスワード"
           />
         </div>
         <div>
-          <label>Confirm Password:</label>
           <input
             type="password"
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
             required
+            placeholder="パスワード再入力"
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">登録する</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
     </div>
