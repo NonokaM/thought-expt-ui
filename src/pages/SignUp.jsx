@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import './SignUp.css'; // CSSファイルをインポート
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './SignUp.css' // CSSファイルをインポート
 
 function SignUp() {
   const [user_name, setUser_name] = useState('')
@@ -10,22 +10,45 @@ function SignUp() {
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault() // デフォルトのフォーム送信を防止
     if (password !== passwordConfirm) {
       setError('パスワードが一致しません')
       return
     }
+
     setError('') // エラーメッセージをクリア
-    console.log('ユーザー名:', user_name)
-    console.log('メールアドレス:', email)
-    console.log('パスワード:', password)
-    navigate('/')
+
+    // APIにデータを送信
+    try {
+      const response = await fetch('http://localhost:3000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_name,
+          email,
+          password,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('登録に失敗しました')
+      }
+
+      const data = await response.json()
+      console.log('登録成功:', data)
+
+      // 登録成功後にホームページにリダイレクト
+      navigate('/')
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>新規登録で思考実験をはじめよう</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -38,9 +61,12 @@ function SignUp() {
           />
         </div>
         <div>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-          required
-          placeholder="メールアドレス"
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="メールアドレス"
           />
         </div>
         <div>
@@ -62,7 +88,7 @@ function SignUp() {
           />
         </div>
         <button type="submit">登録する</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   )
