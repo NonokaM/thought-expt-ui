@@ -1,33 +1,96 @@
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 
 function Header() {
+  const [value, setValue] = useState('/')
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem('token')) && Boolean(localStorage.getItem('user_id')),
+  )
+  const navigate = useNavigate()
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+    navigate(newValue)
+  }
+
+  const handleLoginLogout = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user_id')
+      setIsLoggedIn(false)
+      navigate('/')
+    } else {
+      navigate('/login')
+    }
+  }
+
+  // ページがリロードされたとき、現在のパスに基づいてタブを設定
+  useEffect(() => {
+    setValue(window.location.pathname)
+  }, [])
+
   return (
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/questions/new">問題投稿</Link>
-          </li>
-          <li>
-            <Link to="/questions/1">問題閲覧</Link>
-          </li>
-          <li>
-            <Link to="/questions/1/answer">問題回答</Link>
-          </li>
-          <li>
-            <Link to="/user/1">マイページ</Link>
-          </li>
-        </ul>
-      </nav>
+    <header
+      style={{
+        width: '100%',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        paddingLeft: '20px',
+        paddingRight: '40px',
+        boxSizing: 'border-box',
+        backgroundColor: '#fff',
+        boxShadow: '0px 2px 1px rgba(0, 0, 0, 0.1)',
+        zIndex: 100,
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+          py: 1,
+        }}
+      >
+        <Box sx={{ fontWeight: 'bold', fontSize: 24, ml: 2 }}>LOGO</Box>
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="navigation tabs"
+          textColor="inherit"
+          TabIndicatorProps={{
+            style: {
+              backgroundColor: '#006EFF',
+            },
+          }}
+          sx={{
+            mr: 2,
+            '& .MuiTab-root': { color: '#2F2F2F' },
+            '& .Mui-selected': { color: '#006EFF' },
+          }}
+        >
+          <Tab value="/" label="Home" />
+          <Tab value="/questions/new" label="問題投稿" />
+        </Tabs>
+
+        <Button
+          variant="contained"
+          onClick={handleLoginLogout}
+          sx={{
+            backgroundColor: '#006EFF',
+            '&:hover': { backgroundColor: '#0056CC' },
+          }}
+        >
+          {isLoggedIn ? 'ログアウト' : 'ログイン'}
+        </Button>
+      </Box>
     </header>
   )
 }
