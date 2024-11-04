@@ -7,10 +7,15 @@ function useLogin() {
   const login = async (email, password) => {
     setError(null)
     try {
-      const response = await axios.post('/api/login', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/accounts/login`, {
         email: email,
         password: password,
       })
+
+      // ログイン成功時にトークンとユーザーIDをlocalStorageに保存
+      const { token, user_id } = response.data
+      localStorage.setItem('token', token)
+      localStorage.setItem('user_id', user_id)
 
       console.log('Login success:', response.data)
     } catch (err) {
@@ -18,7 +23,7 @@ function useLogin() {
         // サーバーからのレスポンスがある場合
         setError(`Error: ${err.response.data.message}`)
       } else {
-        // リクエストがそもそも送れなかった、または別のエラー
+        // リクエストが送れなかった、または別のエラー
         setError('An unexpected error occurred.')
       }
     }
