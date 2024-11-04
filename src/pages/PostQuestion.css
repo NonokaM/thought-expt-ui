@@ -1,0 +1,52 @@
+/* 見出しのスタイル */
+h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* フォームのスタイル */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 入力フィールドのスタイル */
+  form input, form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* 幅を100%に */
+    max-width: 300px; /* 最大幅を設定 */
+    text-align: left; /* 文字を左揃えに */
+    box-sizing: border-box;
+  }
+  
+  /* 問題文の入力フィールドのスタイル */
+  form textarea {
+    height: 150px; /* 高さを大きく設定 */
+  }
+  
+  /* ボタンのスタイル */
+  form button {
+    margin-top: 30px; /* ボタンの上に余白を追加 */
+    padding: 10px 20px; /* ボタンのパディングを調整 */
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px; /* フォントサイズを調整 */
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* エラーメッセージのスタイル */
+  form .error {
+    color: red;
+    text-align: center;
+  }
