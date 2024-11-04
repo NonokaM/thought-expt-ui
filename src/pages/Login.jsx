@@ -35,7 +35,7 @@ function Login() {
             placeholder="パスワード"
           />
         </div>
-        <button type="submit">ログイン</button>
+        <button type="submit" className="button">ログイン</button>
         {error && <p className="error">{error}</p>}
         <a href="/signup" className="link">
           新規登録はこちら

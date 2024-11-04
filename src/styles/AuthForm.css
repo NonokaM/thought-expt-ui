@@ -37,7 +37,7 @@ input {
 }
 
 /* ボタンのスタイル */
-button {
+.button {
   margin-top: 20px;
   padding: 8px 30px;
   border: none;
@@ -48,7 +48,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #0056b3;
 }
 

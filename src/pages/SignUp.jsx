@@ -87,7 +87,7 @@ function SignUp() {
             placeholder="パスワード再入力"
           />
         </div>
-        <button type="submit">登録する</button>
+        <button type="submit" className="button">登録する</button>
         {error && <p className="error">{error}</p>}
         <a href="/login" className="link">
           ログインはこちら
