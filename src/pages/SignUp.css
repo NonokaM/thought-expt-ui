@@ -1,0 +1,48 @@
+/* 見出しのスタイル */
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* フォームのスタイル */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 入力フィールドのスタイル */
+input {
+  margin-bottom: 15px;
+  padding: 10px 60px;
+  padding-left: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+  width: 100%; /* 幅を100%に */
+  max-width: 300px; /* 最大幅を設定 */
+  text-align: left; /* 文字を左揃えに */
+  box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+button {
+  margin-top: 20px; /* ボタンの上に余白を追加 */
+  padding: 5px 30px; /* ボタンを小さく */
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px; /* フォントサイズを小さく */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* エラーメッセージのスタイル */
+.error {
+  color: red;
+  text-align: center;
+}
