@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './SignUp.css' // CSSファイルをインポート
+import './../styles/AuthForm.css'
 
 function SignUp() {
   const [user_name, setUser_name] = useState('')
@@ -89,6 +89,9 @@ function SignUp() {
         </div>
         <button type="submit">登録する</button>
         {error && <p className="error">{error}</p>}
+        <a href="/login" className="link">
+          ログインはこちら
+        </a>
       </form>
     </div>
   )
