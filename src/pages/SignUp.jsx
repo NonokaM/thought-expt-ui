@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import './../styles/AuthForm.css'
+import useLogin from './../hooks/useLogin' // useLoginフックをインポート
 
 function SignUp() {
   const [user_name, setUser_name] = useState('')
@@ -8,7 +8,9 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState('')
-  const navigate = useNavigate()
+
+  // useLoginフックのlogin関数とエラーを取得
+  const { login, error: loginError } = useLogin()
 
   const handleSubmit = async (e) => {
     e.preventDefault() // デフォルトのフォーム送信を防止
@@ -19,15 +21,14 @@ function SignUp() {
 
     setError('') // エラーメッセージをクリア
 
-    // APIにデータを送信
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/accoutns/signup`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/accounts/signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_name,
+          username: user_name,
           email,
           password,
         }),
@@ -38,12 +39,19 @@ function SignUp() {
       }
 
       const data = await response.json()
+
+      // エラーチェック：errorフィールドが空でない場合はエラーを表示
+      if (data.error) {
+        setError(data.error)
+        return
+      }
+
       console.log('登録成功:', data)
 
-      // 登録成功後にホームページにリダイレクト
-      navigate('/')
+      // 登録成功後に自動でログイン
+      await login(email, password)
     } catch (error) {
-      setError(error.message)
+      setError(error.message || '予期せぬエラーが発生しました')
     }
   }
 
@@ -87,8 +95,10 @@ function SignUp() {
             placeholder="パスワード再入力"
           />
         </div>
-        <button type="submit" className="button">登録する</button>
-        {error && <p className="error">{error}</p>}
+        <button type="submit" className="button">
+          登録する
+        </button>
+        {(error || loginError) && <p className="error">{error || loginError}</p>}
         <a href="/login" className="link">
           ログインはこちら
         </a>
