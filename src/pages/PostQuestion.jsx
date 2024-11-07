@@ -78,7 +78,6 @@ const PostQuestion = () => {
     console.log('画像ファイル:', imageFile) // 画像ファイルをログに出力
     console.log('選択肢１:', choice1)
     console.log('選択肢２:', choice2)
-    console.log('理由:', answers)
   }
 
   return (
@@ -122,7 +121,7 @@ const PostQuestion = () => {
             value={quiz_text}
             onChange={(e) => setQuiz_text(e.target.value)}
             required
-            placeholder="例）線路を走っていたトロッコが制御不能になった。このままでは、前方の作業員5人が轢き殺されてしまう。このときあなたは..."
+            placeholder="例）線路を走っていたトロッコが制御不能になった。このままでは、前方の線路工事をしている作業員5人が轢き殺されてしまう。ポイントを切り替えると進路を変更することができるが、その場合、無実の一般人が犠牲になってしまう。このときあなたはどちらを犠牲にするか？"
           />
         </div>
         <div>
