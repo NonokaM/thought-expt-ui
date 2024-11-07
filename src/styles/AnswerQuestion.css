@@ -1,0 +1,30 @@
+h2 {
+    text-align: center;
+    font-size: 50px;
+    color: #535790;
+    margin-top: 100px; /* 上に余白を追加 */
+  }
+
+  /* フォームのスタイル */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px; /* 上に余白を追加 */
+  }
+
+  .reason-textarea {
+    width: 100%;
+    height: 200px;
+    width: 600px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px; /* 上に余白を追加 */
+  }
+  
+  .button {
+    height: 50px;
+    width: 100px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
