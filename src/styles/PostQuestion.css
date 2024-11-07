@@ -3,7 +3,7 @@ h2 {
   text-align: center;
   font-size: 50px;
   color: #333;
-  margin-top: 100px; /* 上に余白を追加 */
+  margin-top: 700px; /* 上に余白を追加 */
 }
 
 /* サブ見出しのスタイル */
@@ -17,31 +17,32 @@ h3 {
 form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-top: 40px; /* 上に余白を追加 */
-}
-
-/* コンテナのスタイル */
-.container {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 600px; /* 最大幅を600pxに設定 */
   align-items: center; /* 中央に配置 */
 }
+
+
 
 /* ラベルのスタイル */
 label {
   font-size: 30px;
 }
 
-/* 入力フィールドのスタイル */
-form input, form textarea {
-  height: 50px; /* 高さを大きく設定 */
+
+
+form .container {
+  margin-bottom: 20px; /* 入力フィールドの下に余白を追加 */
   width: 100%; /* 幅を100%に */
-  max-width: 600px; /* 最大幅を設定（選択肢フィールドに合わせる） */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  text-align: left; /* 文字を左揃えに */
+  max-width: 600px; /* 最大幅を600pxに設定 */
+  box-sizing: border-box;
+  align-items: center;
+}
+
+form .theme-input {
+  width: 100%; /* 幅を100%に */
+  max-width: 600px; /* 最大幅を600pxに設定 */
   box-sizing: border-box;
   margin-bottom: 20px; /* 入力フィールドの下に余白を追加 */
 }
@@ -63,7 +64,7 @@ form .file-input-wrapper button {
 form .large-textarea {
   height: 200px; /* 高さを大きく設定 */
   width: 100%; /* 幅を100%に */
-  max-width: 600px; /* 選択肢フィールドに合わせて最大幅を600pxに設定 */
+  max-width: 600px; /* 最大幅を600pxに設定 */
   white-space: pre-wrap;
   box-sizing: border-box;
   margin-bottom: 20px; /* 入力フィールドの下に余白を追加 */

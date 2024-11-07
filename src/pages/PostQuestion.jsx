@@ -1,84 +1,78 @@
-import React, { useState } from 'react';
-import './PostQuestion.css'; // CSSファイルをインポート
+import React, { useState , useEffect} from 'react'
+import '../styles/PostQuestion.css' // CSSファイルをインポート
 
-const PostQuestion = () => {
-  const [theme, setTheme] = useState('');
-  const [quiz_text, setQuizText] = useState('');
-  const [choice1, setChoice1] = useState('');
-  const [choice2, setChoice2] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState('');
-  const [error, setError] = useState('');
+function PostQuestion() {
+  const [theme, setTheme] = useState('')
+  const [quiz_text, setQuiz_text] = useState('')
+  const [choice1, setChoice1] = useState('')
+  const [choice2, setChoice2] = useState('')
+  const [thumbnail, setThumbnail] = useState('')
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const userId = localStorage.getItem('user_id');
+    console.log(userId);
+  }, []);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
-    const reader = new FileReader();
+    const file = e.target.files[0]
+    setImageFile(file)
+    const reader = new FileReader()
     reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+      setThumbnail(reader.result)
+    }
+    reader.readAsDataURL(file)
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // デフォルトのフォーム送信を防止
-    setError(''); // エラーメッセージをクリア
+    e.preventDefault() // デフォルトのフォーム送信を防止
+    setError('') // エラーメッセージをクリア
 
     // バリデーション
-    if (!theme || !quiz_text || !choice1 || !choice2 || !imageFile) {
-      setError('すべてのフィールドを入力してください');
-      return;
+    if (!theme || !quiz_text || !choice1 || !choice2 || !thumbnail) {
+      setError('すべてのフィールドを入力してください')
+      return
     }
 
     // 入力内容を送信
-    const formData = new FormData();
-    formData.append('theme', theme);
-    formData.append('quiz_text', quiz_text);
-    formData.append('choice1', choice1);
-    formData.append('choice2', choice2);
-    formData.append('imageFile', imageFile);
+    const formData = new FormData()
+    formData.append('user', tuser)
+    formData.append('theme', theme)
+    formData.append('quiz_text', quiz_text)
+    formData.append('choice1', choice1)
+    formData.append('choice2', choice2)
+    formData.append('thumbnail', thumbnail)
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/questions`, {
         method: 'POST',
         body: formData,
-      });
+      })
 
       if (!response.ok) {
-        throw new Error('送信に失敗しました');
+        throw new Error('送信に失敗しました')
       }
 
-      const data = await response.json();
-      console.log('送信成功:', data);
+      const data = await response.json()
+      console.log('送信成功:', data)
     } catch (error) {
-      console.error('送信エラー:', error);
-      setError('送信に失敗しました');
+      console.error('送信エラー:', error)
+      setError('送信に失敗しました')
     }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={theme} onChange={(e) => setTheme(e.target.value)} placeholder="テーマ" />
-      <textarea value={quiz_text} onChange={(e) => setQuizText(e.target.value)} placeholder="問題文"></textarea>
-      <input type="text" value={choice1} onChange={(e) => setChoice1(e.target.value)} placeholder="選択肢1" />
-      <input type="text" value={choice2} onChange={(e) => setChoice2(e.target.value)} placeholder="選択肢2" />
-      <input type="file" onChange={handleImageChange} />
-      {imagePreview && <img src={imagePreview} alt="プレビュー" />}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="submit">送信</button>
-    </form>
-  );
-};
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault() // デフォルトのフォーム送信を防止
-    setError('') // エラーメッセージをクリア
-    console.log('問題テーマ:', theme)
-    console.log('問題文:', quiz_text)
-    console.log('画像ファイル:', imageFile) // 画像ファイルをログに出力
-    console.log('選択肢１:', choice1)
-    console.log('選択肢２:', choice2)
   }
+
+  // return (
+  //   <form onSubmit={handleSubmit}>
+  //     <input type="text" value={theme} onChange={(e) => setTheme(e.target.value)} placeholder="テーマ" />
+  //     <textarea value={quiz_text} onChange={(e) => setQuizText(e.target.value)} placeholder="問題文"></textarea>
+  //     <input type="text" value={choice1} onChange={(e) => setChoice1(e.target.value)} placeholder="選択肢1" />
+  //     <input type="text" value={choice2} onChange={(e) => setChoice2(e.target.value)} placeholder="選択肢2" />
+  //     <input type="file" onChange={handleImageChange} />
+  //     {imagePreview && <img src={imagePreview} alt="プレビュー" />}
+  //     {error && <p style={{ color: 'red' }}>{error}</p>}
+  //     <button type="submit">送信</button>
+  //   </form>
+  // );
 
   return (
     <div className="container">
@@ -88,6 +82,7 @@ const PostQuestion = () => {
         <div>
           <label>問題テーマ:</label>
           <input
+            className="theme-input"
             type="text"
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
@@ -108,9 +103,9 @@ const PostQuestion = () => {
             画像ファイルを選択
           </button>
         </div>
-        {imagePreview && (
+        {thumbnail && (
           <div>
-            <img src={imagePreview} alt="問題画像" style={{ maxWidth: '100%' }} />
+            <img src={thumbnail} alt="問題画像" style={{ maxWidth: '100%' }} />
           </div>
         )}
         <div>
