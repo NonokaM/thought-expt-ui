@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 function Header() {
   const [value, setValue] = useState('/')
   const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem('token')) && Boolean(localStorage.getItem('user_id')),
+    Boolean(localStorage.getItem('token')) && Boolean(localStorage.getItem('user_id'))
   )
   const navigate = useNavigate()
 
@@ -28,10 +28,15 @@ function Header() {
     }
   }
 
-  // ページがリロードされたとき、現在のパスに基づいてタブを設定
   useEffect(() => {
     setValue(window.location.pathname)
   }, [])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const userId = localStorage.getItem('user_id')
+    setIsLoggedIn(Boolean(token) && Boolean(userId))
+  }, [localStorage.getItem('token'), localStorage.getItem('user_id')])
 
   return (
     <header

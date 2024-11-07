@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useLogin from './../hooks/useLogin'
+import './../styles/AuthForm.css'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -13,24 +14,32 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="container">
+      <h1>ログインして思考実験をはじめよう</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="メールアドレス"
+          />
         </div>
         <div>
-          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="パスワード"
           />
         </div>
-        <button type="submit">Login</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit" className="button">ログイン</button>
+        {error && <p className="error">{error}</p>}
+        <a href="/signup" className="link">
+          新規登録はこちら
+        </a>
       </form>
     </div>
   )

@@ -1,29 +1,37 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-function useLogin() {
+function useLogin(onLoginSuccess) {
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   const login = async (email, password) => {
     setError(null)
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/accounts/login`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/accounts/login/`, {
         email: email,
         password: password,
       })
 
-      // ログイン成功時にトークンとユーザーIDをlocalStorageに保存
-      const { token, user_id } = response.data
-      localStorage.setItem('token', token)
-      localStorage.setItem('user_id', user_id)
+      const { error: responseError, token, user_id } = response.data
 
-      console.log('Login success:', response.data)
+      if (responseError === 0) {
+        localStorage.setItem('token', token)
+        localStorage.setItem('user_id', user_id)
+
+        navigate('/')
+
+        if (typeof onLoginSuccess === 'function') {
+          onLoginSuccess()
+        }
+      } else {
+        setError('Login failed. Please check your credentials.')
+      }
     } catch (err) {
       if (err.response) {
-        // サーバーからのレスポンスがある場合
-        setError(`Error: ${err.response.data.message}`)
+        setError(`Error: ${err.response.data.message || 'An error occurred on the server.'}`)
       } else {
-        // リクエストが送れなかった、または別のエラー
         setError('An unexpected error occurred.')
       }
     }
