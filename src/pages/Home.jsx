@@ -11,13 +11,17 @@ import './../styles/Home.css'
 
 function Home() {
   const [questions, setQuestions] = useState([])
+  const [error, setError] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
     axios
       .get('/questions')
-      .then((response) => setQuestions(response.data.questions))
-      .catch((error) => console.error('Error fetching questions:', error))
+      .then((response) => setQuestions(response.data.questions || []))
+      .catch((error) => {
+        console.error('Error fetching questions:', error)
+        setError('質問の取得に失敗しました。')
+      })
   }, [])
 
   const handleCardHover = (questionId) => {
@@ -26,30 +30,33 @@ function Home() {
 
   return (
     <div className="container">
-      {questions.map((question) => (
-        <Card
-          key={question.question_id}
-          sx={{ maxWidth: 500, marginBottom: 5 }}
-          onMouseEnter={() => handleCardHover(question.question_id)}
-        >
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="140"
-              image={question.thumbnail || defaultImg}
-              alt="img"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {question.theme}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {question.username} - {question.count} answers
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
+      {error && <div className="error">{error}</div>}
+      {questions && questions.length === 0 && !error && <div>問題が取得できませんでした。</div>}
+      {questions &&
+        questions.map((question) => (
+          <Card
+            key={question.question_id}
+            sx={{ maxWidth: 500, marginBottom: 5 }}
+            onMouseEnter={() => handleCardHover(question.question_id)}
+          >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                image={question.thumbnail || defaultImg}
+                alt="img"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {question.theme}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {question.username} - {question.count} answers
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))}
     </div>
   )
 }
