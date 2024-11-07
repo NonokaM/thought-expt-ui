@@ -1,3 +1,13 @@
+/* コンテナのスタイル */
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 /* 見出しのスタイル */
 h1 {
   text-align: center;
@@ -9,6 +19,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 30px;
 }
 
 /* 入力フィールドのスタイル */
@@ -19,25 +30,25 @@ input {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 13px;
-  width: 100%; /* 幅を100%に */
-  max-width: 300px; /* 最大幅を設定 */
-  text-align: left; /* 文字を左揃えに */
+  width: 100%;
+  max-width: 300px;
+  text-align: left;
   box-sizing: border-box;
 }
 
 /* ボタンのスタイル */
-button {
-  margin-top: 20px; /* ボタンの上に余白を追加 */
-  padding: 5px 30px; /* ボタンを小さく */
+.button {
+  margin-top: 20px;
+  padding: 8px 30px;
   border: none;
   border-radius: 5px;
   background-color: #007bff;
   color: white;
-  font-size: 14px; /* フォントサイズを小さく */
+  font-size: 14px;
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #0056b3;
 }
 
@@ -45,4 +56,15 @@ button:hover {
 .error {
   color: red;
   text-align: center;
+}
+
+/* リンクのスタイル */
+.link {
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 15px; /* リンクの上に余白を追加 */
+}
+
+.link:hover {
+  text-decoration: underline;
 }
