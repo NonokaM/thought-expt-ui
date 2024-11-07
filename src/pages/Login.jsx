@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import useLogin from './../hooks/useLogin'
 import './../styles/AuthForm.css'
 
@@ -35,11 +36,13 @@ function Login() {
             placeholder="パスワード"
           />
         </div>
-        <button type="submit" className="button">ログイン</button>
+        <button type="submit" className="button">
+          ログイン
+        </button>
         {error && <p className="error">{error}</p>}
-        <a href="/signup" className="link">
+        <Link to="/signup" className="link">
           新規登録はこちら
-        </a>
+        </Link>
       </form>
     </div>
   )

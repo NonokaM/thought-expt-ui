@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './../styles/AuthForm.css'
+import { Link } from 'react-router-dom'
 import useLogin from './../hooks/useLogin' // useLoginフックをインポート
 
 function SignUp() {
@@ -99,9 +100,9 @@ function SignUp() {
           登録する
         </button>
         {(error || loginError) && <p className="error">{error || loginError}</p>}
-        <a href="/login" className="link">
+        <Link to="/login" className="link">
           ログインはこちら
-        </a>
+        </Link>
       </form>
     </div>
   )
