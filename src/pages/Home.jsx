@@ -25,7 +25,7 @@ function Home() {
   }, [])
 
   const handleCardHover = (questionId) => {
-    navigate(`/questions/${questionId}/details`)
+    navigate(`/questions/${questionId}`)
   }
 
   return (

@@ -4,11 +4,12 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import logoImg from './../../assets/logo.png'
 
 function Header() {
   const [value, setValue] = useState('/')
   const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem('token')) && Boolean(localStorage.getItem('user_id'))
+    Boolean(localStorage.getItem('token')) && Boolean(localStorage.getItem('user_id')),
   )
   const navigate = useNavigate()
 
@@ -61,7 +62,9 @@ function Header() {
           py: 1,
         }}
       >
-        <Box sx={{ fontWeight: 'bold', fontSize: 24, ml: 2 }}>LOGO</Box>
+        <Box sx={{ fontWeight: 'bold', fontSize: 24, ml: 2 }}>
+          <img src={logoImg} alt="Logo" style={{ height: '40px', width: 'auto' }} />{' '}
+        </Box>
 
         <Box sx={{ flexGrow: 1 }} />
 
