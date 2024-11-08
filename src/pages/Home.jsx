@@ -16,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get('/questions')
+      .get(`${import.meta.env.VITE_API_BASE_URL}/questions`)
       .then((response) => setQuestions(response.data.questions || []))
       .catch((error) => {
         console.error('Error fetching questions:', error)
@@ -24,7 +24,7 @@ function Home() {
       })
   }, [])
 
-  const handleCardHover = (questionId) => {
+  const handleCardClick = (questionId) => {
     navigate(`/questions/${questionId}`)
   }
 
@@ -34,12 +34,8 @@ function Home() {
       {questions && questions.length === 0 && !error && <div>問題が取得できませんでした。</div>}
       {questions &&
         questions.map((question) => (
-          <Card
-            key={question.question_id}
-            sx={{ maxWidth: 500, marginBottom: 5 }}
-            onMouseEnter={() => handleCardHover(question.question_id)}
-          >
-            <CardActionArea>
+          <Card key={question.question_id} sx={{ maxWidth: 500, marginBottom: 5 }}>
+            <CardActionArea onClick={() => handleCardClick(question.question_id)}>
               <CardMedia
                 component="img"
                 height="140"
