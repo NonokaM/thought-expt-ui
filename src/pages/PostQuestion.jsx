@@ -29,49 +29,44 @@ function PostQuestion() {
     setError('') // エラーメッセージをクリア
 
     // バリデーション
-    if (!theme || !question_text || !choice1 || !choice2 || !thumbnail) {
-      setError('すべてのフィールドを入力してください')
-      return
-    }
-
-    // 入力内容を送信
-    const formData = new FormData()
-    formData.append('theme', theme)
-    formData.append('question_text', question_text)
-    formData.append('choice1', choice1)
-    formData.append('choice2', choice2)
-    formData.append('thumbnail', thumbnail)
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/questions`, {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!response.ok) {
-        throw new Error('送信に失敗しました')
-      }
-
-      const data = await response.json()
-      console.log('送信成功:', data)
-    } catch (error) {
-      console.error('送信エラー:', error)
-      setError('送信に失敗しました')
-    }
+     if (!theme || !question_text || !choice1 || !choice2) {
+    setError('すべてのフィールドを入力してください');
+    return;
   }
 
-  // return (
-  //   <form onSubmit={handleSubmit}>
-  //     <input type="text" value={theme} onChange={(e) => setTheme(e.target.value)} placeholder="テーマ" />
-  //     <textarea value={quiz_text} onChange={(e) => setQuizText(e.target.value)} placeholder="問題文"></textarea>
-  //     <input type="text" value={choice1} onChange={(e) => setChoice1(e.target.value)} placeholder="選択肢1" />
-  //     <input type="text" value={choice2} onChange={(e) => setChoice2(e.target.value)} placeholder="選択肢2" />
-  //     <input type="file" onChange={handleImageChange} />
-  //     {imagePreview && <img src={imagePreview} alt="プレビュー" />}
-  //     {error && <p style={{ color: 'red' }}>{error}</p>}
-  //     <button type="submit">送信</button>
-  //   </form>
-  // );
+  const payload = {
+    user_id: localStorage.getItem('user_id'),
+    theme: theme,
+    thumbnail: "default-img.png",
+    question_text: question_text,
+    choice1: choice1,
+    choice2: choice2,
+  };
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/questions/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const text = await response.text(); // レスポンスをテキストとして取得
+    console.log('レスポンスの内容:', text);
+
+    if (!response.ok) {
+      console.error('ステータスコード:', response.status);
+      throw new Error('送信に失敗しました');
+    }
+
+    const data = JSON.parse(text); // テキストをJSONにパース
+    console.log('送信成功:', data);
+  } catch (error) {
+    console.error('送信エラー:', error);
+    setError('送信に失敗しました');
+  }
+};
 
   return (
     <div className="container">
@@ -140,7 +135,7 @@ function PostQuestion() {
         <button 
         className="button-pages"
         type="submit">投稿する</button>
-        {error && <p className="error">{error}</p>}
+        {/* {error && <p className="error">{error}</p>} */}
       </form>
     </div>
   )
