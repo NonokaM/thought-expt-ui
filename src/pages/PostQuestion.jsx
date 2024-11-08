@@ -3,7 +3,7 @@ import '../styles/PostQuestion.css' // CSSファイルをインポート
 
 function PostQuestion() {
   const [theme, setTheme] = useState('')
-  const [quiz_text, setQuiz_text] = useState('')
+  const [question_text, setQuestion_text] = useState('')
   const [choice1, setChoice1] = useState('')
   const [choice2, setChoice2] = useState('')
   const [thumbnail, setThumbnail] = useState('')
@@ -29,16 +29,15 @@ function PostQuestion() {
     setError('') // エラーメッセージをクリア
 
     // バリデーション
-    if (!theme || !quiz_text || !choice1 || !choice2 || !thumbnail) {
+    if (!theme || !question_text || !choice1 || !choice2 || !thumbnail) {
       setError('すべてのフィールドを入力してください')
       return
     }
 
     // 入力内容を送信
     const formData = new FormData()
-    formData.append('user', tuser)
     formData.append('theme', theme)
-    formData.append('quiz_text', quiz_text)
+    formData.append('question_text', question_text)
     formData.append('choice1', choice1)
     formData.append('choice2', choice2)
     formData.append('thumbnail', thumbnail)
@@ -113,8 +112,8 @@ function PostQuestion() {
           <textarea
             className="large-textarea" // 特定のクラスを追加
             type="text"
-            value={quiz_text}
-            onChange={(e) => setQuiz_text(e.target.value)}
+            value={question_text}
+            onChange={(e) => setQuestion_text(e.target.value)}
             required
             placeholder="例）線路を走っていたトロッコが制御不能になった。このままでは、前方の線路工事をしている作業員5人が轢き殺されてしまう。ポイントを切り替えると進路を変更することができるが、その場合、無実の一般人が犠牲になってしまう。このときあなたはどちらを犠牲にするか？"
           />
@@ -138,7 +137,9 @@ function PostQuestion() {
             />
           </div>
         </div>
-        <button type="submit">投稿する</button>
+        <button 
+        className="button-pages"
+        type="submit">投稿する</button>
         {error && <p className="error">{error}</p>}
       </form>
     </div>
