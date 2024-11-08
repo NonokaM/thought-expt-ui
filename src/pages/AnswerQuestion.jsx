@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../styles/AnswerQuestion.css'; // CSSファイルをインポート*/
 //http://localhost:5173/questions/questionsId/answer
 
-  const AnswerQuestion = ({ question_id, user_id, user_name, theme, question_text, choice1, choice2, thumbnail }) => {
+
+const AnswerQuestion = ({ question_id, user_id, user_name, theme, question_text, choice1, choice2, thumbnail }) => {
     const [choice, setChoice] = useState('');
     const [reason, setReason] = useState('');
     const [questionData, setQuestionData] = useState(null);
